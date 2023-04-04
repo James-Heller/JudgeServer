@@ -12,12 +12,12 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.Random
 
-class Runner(private val exePath: String, private val testCaseDir: String, private val languageType:String) {
+class Runner(private val exePath: String, private val testCaseDir: String, private val ruleName: String?) {
 
 
 
     fun run(
-        cpuTime: Int, realTime: Int, maxMemory: Int,
+        cpuTime: Int, realTime: Int, maxMemory: Int, args: List<String>?,
         processNumber: Int, maxOutputSize: Int, maxStack: Int
     ): JSONArray {
 
@@ -42,7 +42,8 @@ class Runner(private val exePath: String, private val testCaseDir: String, priva
                 inputFilePath,
                 executeResultFilePath,
                 executeResultFilePath,
-                languageType,
+                args,
+                ruleName
 
             )
 
@@ -57,7 +58,10 @@ class Runner(private val exePath: String, private val testCaseDir: String, priva
             result["md5check"] = md5Check(outMD5, resultMD5)
             resultSet.add(result)
 
+            //Delete output file when got result
+            File(executeResultFilePath).delete()
         }
+
 
         return resultSet
     }
@@ -73,7 +77,8 @@ class Runner(private val exePath: String, private val testCaseDir: String, priva
         inputPath: String,
         outputPath: String,
         errPath: String,
-        ruleName: String,
+        args: List<String>?,
+        ruleName: String?,
 
 
     ): MutableList<String>{
@@ -91,12 +96,14 @@ class Runner(private val exePath: String, private val testCaseDir: String, priva
         cmd.add("--output_path=$outputPath")
         cmd.add("--error_path=$errPath")
         cmd.add("--log_path=${Config.logBasePath}/judge.log")
-        cmd.add("--seccomp_rule_name=$ruleName")
+        if (ruleName != null) cmd.add("--seccomp_rule_name=$ruleName")
         cmd.add("--uid=0")
         cmd.add("--gid=0")
+        args?.forEach {
+            cmd.add("--args=$it")
+        }
 
         return cmd
-
     }
 
     private fun readProcessOutput( process: Process): String{
@@ -147,10 +154,4 @@ class Runner(private val exePath: String, private val testCaseDir: String, priva
 
         return val1 == val2
     }
-}
-
-fun main(){
-
-
-
 }
