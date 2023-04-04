@@ -1,9 +1,9 @@
-package pers.jamestang.JudgeServer
+package pers.jamestang.JudgeServer.runner
 
 import org.junit.jupiter.api.Test
 import pers.jamestang.judgeServer.runner.Runner
 
-class LanguageTest {
+class RunnerTest {
 
 
     @Test
@@ -16,6 +16,13 @@ class LanguageTest {
     @Test
     fun javaTest(){
         val runner = Runner("/usr/bin/java", "add", null).run(3000,5000, -1, listOf("-cp", "./executable", "add"), 200,10000, 32*1024*1024)
+
+        println(runner)
+    }
+
+    @Test
+    fun python3Test(){
+        val runner = Runner("/usr/bin/python3", "add", "general").run(3000,5000, -1, listOf("./executable/add.py"), 200, 10000, 32*1024*1024)
 
         println(runner)
     }
