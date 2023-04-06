@@ -18,7 +18,7 @@ class Runner(private val exePath: String, private val testCaseDir: String, priva
 
     fun run(
         cpuTime: Int, realTime: Int, maxMemory: Int, args: List<String>?,
-        processNumber: Int, maxOutputSize: Int, maxStack: Int
+        env: List<String>?, processNumber: Int, maxOutputSize: Int, maxStack: Int
     ): JSONArray {
 
         val testCases = getTestCase(testCaseDir)
@@ -43,6 +43,7 @@ class Runner(private val exePath: String, private val testCaseDir: String, priva
                 executeResultFilePath,
                 executeResultFilePath,
                 args,
+                env,
                 ruleName
 
             )
@@ -78,6 +79,7 @@ class Runner(private val exePath: String, private val testCaseDir: String, priva
         outputPath: String,
         errPath: String,
         args: List<String>?,
+        env: List<String>?,
         ruleName: String?,
 
 
@@ -101,6 +103,10 @@ class Runner(private val exePath: String, private val testCaseDir: String, priva
         cmd.add("--gid=0")
         args?.forEach {
             cmd.add("--args=$it")
+        }
+
+        env?.forEach{
+            cmd.add("--env=$it")
         }
 
         return cmd
