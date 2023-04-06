@@ -41,7 +41,7 @@ class CompileTest {
                         Scanner scanner = new Scanner(System.in);
                         a = scanner.nextInt();
                         b = scanner.nextInt();
-                        System.out.println(a+b);
+                        System.out.print(a+b);
                         scanner.close();
                     }
                 }

@@ -3,6 +3,7 @@ package pers.jamestang.judgeServer.runner
 import com.alibaba.fastjson2.JSONArray
 import com.alibaba.fastjson2.JSONObject
 import pers.jamestang.judgeServer.config.Config
+import pers.jamestang.judgeServer.entity.Result
 import java.io.BufferedReader
 import java.io.File
 import java.io.IOException
@@ -15,6 +16,20 @@ import java.util.Random
 class Runner(private val exePath: String, private val testCaseDir: String, private val ruleName: String?) {
 
 
+    fun getResult(cpuTime: Int, realTime: Int, maxMemory: Int, args: List<String>?,
+                  env: List<String>?, processNumber: Int, maxOutputSize: Int, maxStack: Int): List<Result>{
+
+        val rawResult = this.run(cpuTime, realTime, maxMemory, args, env, processNumber, maxOutputSize, maxStack)
+
+        val results = mutableListOf<Result>()
+
+        rawResult.forEach {
+            it as JSONObject
+            results.add(Result(it["cpu_time"] as Int, it["real_time"] as Int, it["memory"] as Int, it["md5check"] as Boolean))
+        }
+
+        return results
+    }
 
     fun run(
         cpuTime: Int, realTime: Int, maxMemory: Int, args: List<String>?,

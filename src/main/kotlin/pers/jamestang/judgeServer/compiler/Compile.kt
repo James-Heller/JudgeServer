@@ -13,11 +13,11 @@ class Compile(private val languageType: LanguageType, private val code: String, 
         this.codeToFile()
         val cmd = this.genCompileCmd()
         val builder = ProcessBuilder()
-        println(cmd)
         builder.command(cmd)
 
         val process = builder.start()
         process.waitFor()
+        currentCodeFile.delete()
         if (process.exitValue() == 0){
 
             return when(languageType){
