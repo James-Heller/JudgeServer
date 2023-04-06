@@ -8,6 +8,7 @@ import java.util.Random
 class Compile(private val languageType: LanguageType, private val code: String, private val problemName: String) {
 
     private lateinit var currentCodeFile: File
+    private lateinit var javaCodeFileDir: File
     fun compile(): String? {
 
         this.codeToFile()
@@ -18,6 +19,7 @@ class Compile(private val languageType: LanguageType, private val code: String, 
         val process = builder.start()
         process.waitFor()
         currentCodeFile.delete()
+        if (languageType == LanguageType.Java) javaCodeFileDir.delete()
         if (process.exitValue() == 0){
 
             return when(languageType){
@@ -52,21 +54,34 @@ class Compile(private val languageType: LanguageType, private val code: String, 
 
     private fun codeToFile() {
 
-        val baseName = Random().nextInt(10).toString() + problemName
+        val baseName = Random().nextInt().toString() + problemName
         val filename: String = when(languageType){
             LanguageType.C -> "$baseName.c"
             LanguageType.Cpp -> "$baseName.cpp"
-            LanguageType.Java -> "$problemName.java"
+            LanguageType.Java -> "$baseName/$problemName.java"
             LanguageType.Go -> "$baseName.go"
             LanguageType.Python3 -> "$baseName.py"
             LanguageType.Python2 -> "$baseName.py"
         }
 
-        val file = File("${Config.srcBasePath}/$filename")
-        file.createNewFile()
-        file.writeText(code)
+        currentCodeFile = if (languageType == LanguageType.Java){
 
-        currentCodeFile = file
+            javaCodeFileDir = File("${Config.srcBasePath}/$baseName")
+            javaCodeFileDir.mkdir()
+
+            val file = File("${Config.srcBasePath}/$filename")
+            file.createNewFile()
+            file.writeText(code)
+            file
+
+        }else{
+            val file = File("${Config.srcBasePath}/$filename")
+            file.createNewFile()
+            file.writeText(code)
+            file
+        }
+
+
 
     }
 
