@@ -9,9 +9,12 @@ class SimpleTest {
     @Test
     fun filenameTest(){
 
-        val file = File("libjudger.so")
+        val file = File("./executable/libjudger.so")
+
 
         println(file.path)
         println(file.absoluteFile)
+        println(file.canonicalPath)
+        println(file.nameWithoutExtension)
     }
 }

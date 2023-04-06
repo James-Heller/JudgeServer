@@ -9,7 +9,7 @@ class Compile(private val languageType: LanguageType, private val code: String, 
 
     private lateinit var currentCodeFile: File
     private lateinit var javaCodeFileDir: File
-    private lateinit var javaBinaryDirPrefix: String
+    lateinit var javaBinaryDirPrefix: String
     private lateinit var binaryFilePath: String
     fun compile(): String? {
 
@@ -39,14 +39,7 @@ class Compile(private val languageType: LanguageType, private val code: String, 
         return null
     }
 
-    /**
-     * This method need to be called when judge is done not matter the result is success or fail.
-     * Otherwise, the generated binary file will stay in server.
-     */
-    fun deleteBinaryFile(){
 
-        File(binaryFilePath).delete()
-    }
 
     private fun genCompileCmd(): List<String> {
 
@@ -57,7 +50,7 @@ class Compile(private val languageType: LanguageType, private val code: String, 
             LanguageType.C -> "/usr/bin/gcc -DONLINE_JUDGE -O2 -w -fmax-errors=3 -std=c99 ${currentCodeFile.path} -lm -o ${Config.executableBasePath}/${currentCodeFile.nameWithoutExtension}.out".split(' ')
             LanguageType.Cpp -> "/usr/bin/g++ -DONLINE_JUDGE -O2 -w -fmax-errors=3 -std=c++11 ${currentCodeFile.path} -lm -o ${Config.executableBasePath}/${currentCodeFile.nameWithoutExtension}.out".split(' ')
             LanguageType.Java -> {
-                javaBinaryDirPrefix = Random().nextInt().toString()
+                javaBinaryDirPrefix = Random().nextInt(10000).toString()
                 "/usr/bin/javac -d ${Config.executableBasePath}/${javaBinaryDirPrefix} ${currentCodeFile.path}".split(' ')
             }
             LanguageType.Go -> "/usr/bin/go build -o ${Config.executableBasePath}/${currentCodeFile.nameWithoutExtension}.gout ${currentCodeFile.path}".split(' ')
