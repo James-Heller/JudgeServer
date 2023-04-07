@@ -43,28 +43,28 @@ class Judges(private val languageType: LanguageType, private val code: String, p
       val result = when(languageType){
 
           LanguageType.C, LanguageType.Cpp -> {
-              Runner(binaryFilePath, problemName, "c_cpp").getResult(
-                  1000,2000, 128*1024*1024, null, null, 200,10000, 32*1024*1024
+              Runner("${Config.executableBasePath}/$binaryFilePath", problemName, "c_cpp").getResult(
+                  -1,-1, -1, null, null, 200,10000, 32*1024*1024
               )
           }
 
           LanguageType.Go -> {
-              Runner(binaryFilePath, problemName, null).getResult(2000, 4000, -1, null, listOf("GODEBUG=madvdontneed=1", "GOCACHE=off"), 200, 10000, 32*1024*1024)
+              Runner("${Config.executableBasePath}/$binaryFilePath", problemName, null).getResult(2000, 4000, -1, null, listOf("GODEBUG=madvdontneed=1", "GOCACHE=off"), 200, 10000, 32*1024*1024)
           }
 
           LanguageType.Java ->{
               Runner("/usr/bin/java", problemName, null).getResult(
-                  3000,5000, -1, listOf("-cp", "./executable/${compiler.javaBinaryDirPrefix}", File(binaryFilePath).nameWithoutExtension), null, 200,10000, 32*1024*1024)
+                  3000,5000, -1, listOf("-cp", "${Config.executableBasePath}/${compiler.javaBinaryDirPrefix}", File(binaryFilePath).nameWithoutExtension), null, 200,10000, 32*1024*1024)
           }
 
           LanguageType.Python3 -> {
               Runner("/usr/bin/python3", problemName, "general").getResult(
-                  3000,5000, -1, listOf(binaryFilePath), null, 200, 10000, 32*1024*1024)
+                  3000,5000, -1, listOf("${Config.executableBasePath}/$binaryFilePath"), null, 200, 10000, 32*1024*1024)
           }
 
           LanguageType.Python2 -> {
               Runner("/usr/bin/python2", problemName, "general").getResult(
-                  3000,5000, -1, listOf(binaryFilePath), null, 200, 10000, 32*1024*1024)
+                  3000,5000, -1, listOf("${Config.executableBasePath}/$binaryFilePath"), null, 200, 10000, 32*1024*1024)
           }
       }
 

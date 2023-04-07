@@ -63,7 +63,7 @@ class Compile(private val languageType: LanguageType, private val code: String, 
 
     private fun codeToFile() {
 
-        val baseName = Random().nextInt().toString() + problemName
+        val baseName = Random().nextInt(10000).toString() + problemName
         val filename: String = when(languageType){
             LanguageType.C -> "$baseName.c"
             LanguageType.Cpp -> "$baseName.cpp"

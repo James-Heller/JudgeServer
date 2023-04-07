@@ -45,7 +45,7 @@ class Runner(private val exePath: String, private val testCaseDir: String, priva
             it as JSONObject
             val inputFilePath = "${Config.testCaseBasePath}/$testCaseDir/${it["in"] as String}"
             val resultFilePath = "${Config.testCaseBasePath}/$testCaseDir/${it["out"] as String}"
-            val executeResultFilePath = "${Config.executeResultBasePath}/" + Random().nextInt().toString() + "output.out"
+            val executeResultFilePath = "${Config.executeResultBasePath}/" + Random().nextInt(10000).toString() + "output.out"
             val cmd = configWrapper(
                 cpuTime,
                 realTime,
