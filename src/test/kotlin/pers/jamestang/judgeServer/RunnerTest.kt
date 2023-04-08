@@ -1,7 +1,6 @@
-package pers.jamestang.JudgeServer.runner
+package pers.jamestang.judgeServer.runner
 
 import org.junit.jupiter.api.Test
-import pers.jamestang.judgeServer.runner.Runner
 
 class RunnerTest {
 

@@ -10,5 +10,7 @@ object Config {
     const val logBasePath = "./log"
     const val srcBasePath = "./code"
     const val executableBasePath = "./executable"
+    const val requestQueueName = "user_source"
+    const val prefetchCount = 1
 
 }
