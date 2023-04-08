@@ -23,10 +23,10 @@ class JudgeServer{
         initDir()
 
         val factory = ConnectionFactory()
-        factory.host = "118.178.239.179"
-        factory.port = 5672
-        factory.username = "JamesTang"
-        factory.password = "252566"
+        factory.host = Config.rabbitMQConnectURL
+        factory.port = Config.rabbitMQConnectPort
+        factory.username = Config.rabbitMQConnectUsername
+        factory.password = Config.rabbitMQConnectPassword
         val connection = factory.newConnection()
         val channel = connection.createChannel()
 
@@ -102,7 +102,7 @@ class JudgeServer{
 
     private fun saveToDB(userId: Int, avgCpuTime: Int, avgRealTime: Int, avgMemUse: Int, finalResult: Boolean){
 
-        val db = Database.connect("jdbc:mysql://118.178.239.179:3366/OJCore", user = "root", password = "252566")
+        val db = Database.connect(url = Config.mysqlConnectURL, user = Config.mysqlUsername, password = Config.mysqlPassword)
 
         db.insert(ResultDB){
             set(it.userId, userId)

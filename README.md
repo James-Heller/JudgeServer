@@ -7,6 +7,8 @@
 基于Kotlin开发，以Ktorm作为ORM框架，RabbitMQ作为消息队列支撑。
 依赖于：RabbitMQ,Ktorm,MysqlConnector, Alibaba Fastjson2-kotlin。
 
+**Java版本为Java17，Kotlin版本为1.8**
+
 #### 安装教程
 
 1.  clone仓库，并且修改config包下Config.kt里面的配置属性。
@@ -15,9 +17,11 @@
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+***
+**你必须自行clone 来自青岛大学在Github上的Judger项目进行编译以获得*libjudger.so*文件。**
+**在编译完成后你需要替换掉本项目内的*libjudger.so***
+
+**打包成jar时，代码中的./所指的是jar的所在目录，在IDE中时为当前项目的跟目录**
 
 #### 参与贡献
 
@@ -26,12 +30,3 @@
 3.  提交代码
 4.  新建 Pull Request
 
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
