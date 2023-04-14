@@ -15,17 +15,17 @@ object Config {
     /**
      *  Mysql Config
      */
-    const val mysqlConnectURL = "jdbc:mysql://118.178.239.179:3366/OJCore"
-    const val mysqlUsername = "root"
-    const val mysqlPassword = "252566"
+    const val mysqlConnectURL = "jdbc:mysql://"
+    const val mysqlUsername = ""
+    const val mysqlPassword = ""
 
     /**
      * RabbitMQ Config
      */
-    const val rabbitMQConnectURL = "118.178.239.179"
+    const val rabbitMQConnectURL = ""
     const val rabbitMQConnectPort = 5672
-    const val rabbitMQConnectUsername = "JamesTang"
-    const val rabbitMQConnectPassword = "252566"
+    const val rabbitMQConnectUsername = ""
+    const val rabbitMQConnectPassword = ""
     const val requestQueueName = "user_source"
     // This value is control how many task can do in the same time
     const val prefetchCount = 1
