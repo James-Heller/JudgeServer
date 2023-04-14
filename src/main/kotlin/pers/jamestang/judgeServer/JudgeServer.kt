@@ -10,6 +10,7 @@ import pers.jamestang.judgeServer.annotation.Slf4j
 import pers.jamestang.judgeServer.annotation.Slf4j.Companion.log
 import pers.jamestang.judgeServer.config.Config
 import pers.jamestang.judgeServer.dao.ResultDB
+import pers.jamestang.judgeServer.entity.LanguageType
 import pers.jamestang.judgeServer.entity.Source
 import pers.jamestang.judgeServer.judge.Judges
 import java.io.File
@@ -97,10 +98,10 @@ class JudgeServer{
         avgMemUse /= resultList.size
 
 
-        saveToDB(source.userId, avgCpuTime, avgRealTime, avgMemUse, finalResult)
+        saveToDB(source.userId, avgCpuTime, avgRealTime, avgMemUse, finalResult, source.languageType)
     }
 
-    private fun saveToDB(userId: Int, avgCpuTime: Int, avgRealTime: Int, avgMemUse: Int, finalResult: Boolean){
+    private fun saveToDB(userId: Int, avgCpuTime: Int, avgRealTime: Int, avgMemUse: Int, finalResult: Boolean, languageType: LanguageType){
 
         val db = Database.connect(url = Config.mysqlConnectURL, user = Config.mysqlUsername, password = Config.mysqlPassword)
 
@@ -110,6 +111,7 @@ class JudgeServer{
             set(it.realTime, avgRealTime)
             set(it.memory, avgMemUse)
             set(it.md5Check, finalResult)
+            set(it.languageType, languageType.ordinal)
         }
     }
 }

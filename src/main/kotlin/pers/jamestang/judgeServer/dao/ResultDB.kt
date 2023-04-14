@@ -11,4 +11,5 @@ object ResultDB : Table<Nothing>("result"){
     val realTime = int("real_time")
     val memory = int("memory")
     val md5Check = boolean("md5_check")
+    val languageType = int("language_type")
 }

@@ -1,4 +1,4 @@
-package pers.jamestang.judgeServer.runner
+package pers.jamestang.judgeServer
 
 import com.rabbitmq.client.ConnectionFactory
 import org.junit.jupiter.api.Test
